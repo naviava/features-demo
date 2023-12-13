@@ -7,6 +7,7 @@ import { Providers } from "~/components/providers";
 import SessionProvider from "~/components/providers/session-provider";
 
 import { cn } from "~/lib/utils";
+import { AuthButton } from "~/components/auth-button";
 
 const font = Inter({ subsets: ["latin"] });
 
@@ -24,9 +25,16 @@ export default async function RootLayout({
 
   return (
     <html lang="en">
-      <body className={cn("bg-zinc-800", font.className)}>
+      <body className={cn("bg-zinc-800 text-base", font.className)}>
         <SessionProvider session={session}>
-          <Providers>{children}</Providers>
+          <Providers>
+            <div className="flex h-full flex-col">
+              <nav className="flex justify-end px-6 py-2">
+                <AuthButton />
+              </nav>
+              {children}
+            </div>
+          </Providers>
         </SessionProvider>
       </body>
     </html>

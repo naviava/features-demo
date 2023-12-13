@@ -1,8 +1,11 @@
 "use client";
 
 import { signIn, signOut, useSession } from "next-auth/react";
+import { Button } from "~/components/ui/button";
 
-export default function Home() {
+interface Props {}
+
+export function AuthButton({}: Props) {
   const { data: session } = useSession();
 
   function handleClick() {
@@ -13,5 +16,9 @@ export default function Home() {
     }
   }
 
-  return <button onClick={handleClick}>Sign {!!session ? "Out" : "In"}</button>;
+  return (
+    <Button size="sm" onClick={handleClick}>
+      Sign {!!session ? "Out" : "In"}
+    </Button>
+  );
 }
