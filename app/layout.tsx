@@ -1,6 +1,10 @@
+import "./globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import "./globals.css";
+
+import { Providers } from "~/components/providers";
+
+import { cn } from "~/lib/utils";
 
 const font = Inter({ subsets: ["latin"] });
 
@@ -16,7 +20,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={font.className}>{children}</body>
+      <body className={cn("bg-zinc-800", font.className)}>
+        <Providers>{children}</Providers>
+      </body>
     </html>
   );
 }
