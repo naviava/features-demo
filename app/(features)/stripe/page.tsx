@@ -1,10 +1,10 @@
 "use client";
 
 import React from "react";
-import { loadStripe } from "@stripe/stripe-js";
 import { trpc } from "~/app/_trpc/client";
 import { toast } from "sonner";
 import { Button } from "~/components/ui/button";
+import { format } from "date-fns";
 
 // Make sure to call `loadStripe` outside of a component’s render to avoid
 // recreating the `Stripe` object on every render.
@@ -90,8 +90,10 @@ export default function PreviewPage() {
                 : "Subscribe to our service"}
             </h2>
             {subscriptionData?.isSubscribed && (
-              <p className="text-xs">
-                Subscription ends on {subscriptionData.endDate}
+              <p className="text-center text-sm">
+                Subscription ends on{" "}
+                {subscriptionData.endDate &&
+                  format(new Date(subscriptionData.endDate), "MMMM d, yyyy")}
               </p>
             )}
             <div className="mt-2 flex items-center justify-center">

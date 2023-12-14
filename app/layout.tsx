@@ -8,6 +8,8 @@ import SessionProvider from "~/components/providers/session-provider";
 
 import { cn } from "~/lib/utils";
 import { AuthButton } from "~/components/auth-button";
+import Link from "next/link";
+import { Button } from "~/components/ui/button";
 
 const font = Inter({ subsets: ["latin"] });
 
@@ -29,7 +31,10 @@ export default async function RootLayout({
         <SessionProvider session={session}>
           <Providers>
             <div className="flex h-full flex-col">
-              <nav className="flex justify-end px-6 py-2">
+              <nav className="flex justify-between px-6 py-2">
+                <Button asChild size="sm">
+                  <Link href="/">Home</Link>
+                </Button>
                 <AuthButton />
               </nav>
               {children}
