@@ -51,6 +51,7 @@ model User {
   name           String?
   hashedPassword String?
   image          String?
+  purchaseCount  Int       @default(0)
   accounts       Account[]
   sessions       Session[]
 

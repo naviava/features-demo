@@ -52,6 +52,7 @@ export const checkout = authProcedure.mutation(async ({ ctx }) => {
     ],
     success_url: `${process.env.NEXT_PUBLIC_SITE_URL}/stripe?success=true&session_id={CHECKOUT_SESSION_ID}`,
     cancel_url: `${process.env.NEXT_PUBLIC_SITE_URL}/stripe?canceled=true`,
+    metadata: { userId: user.id },
   });
 
   return { url: checkoutSession.url };
