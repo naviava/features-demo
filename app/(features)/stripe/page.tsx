@@ -4,6 +4,7 @@ import React from "react";
 import { loadStripe } from "@stripe/stripe-js";
 import { trpc } from "~/app/_trpc/client";
 import { toast } from "sonner";
+import { Button } from "~/components/ui/button";
 
 // Make sure to call `loadStripe` outside of a component’s render to avoid
 // recreating the `Stripe` object on every render.
@@ -14,8 +15,18 @@ import { toast } from "sonner";
 export default function PreviewPage() {
   const { data: user } = trpc.user.getAuthProfile.useQuery();
 
-  const { mutate: handleCheckout, isLoading } =
-    trpc.stripe.checkout.useMutation({
+  const { data: subscriptionData } = trpc.stripe.checkSubscription.useQuery();
+
+  const { mutate: handlePaymentCheckout, isLoading } =
+    trpc.stripe.paymentCheckout.useMutation({
+      onError: ({ message }) => toast.error(message),
+      onSuccess: ({ url }) => {
+        if (!!url) window.location.href = url;
+      },
+    });
+
+  const { mutate: handleSubscriptionCheckout, isLoading: isLoading2 } =
+    trpc.stripe.subscriptionCheckout.useMutation({
       onError: ({ message }) => toast.error(message),
       onSuccess: ({ url }) => {
         if (!!url) window.location.href = url;
@@ -27,7 +38,7 @@ export default function PreviewPage() {
       <form
         onSubmit={(e) => {
           e.preventDefault();
-          handleCheckout();
+          handlePaymentCheckout();
         }}
       >
         <section>
@@ -35,7 +46,7 @@ export default function PreviewPage() {
             {`\u20B9 ${(2000).toLocaleString("en-IN")}`}
           </div>
           <p></p>
-          <button type="submit" role="link" disabled={isLoading}>
+          <button type="submit" role="link" disabled={isLoading || isLoading2}>
             Checkout
           </button>
         </section>
@@ -67,9 +78,35 @@ export default function PreviewPage() {
           `}
         </style>
       </form>
-      <h1 className="mt-10 text-center text-4xl font-bold">
-        Total purchases: {user?.purchaseCount}
-      </h1>
+      {!!user && (
+        <>
+          <h2 className="mt-10 text-center text-4xl font-bold">
+            Total purchases: {user?.purchaseCount}
+          </h2>
+          <div className="mt-24">
+            <h2 className="text-center text-4xl font-bold">
+              {subscriptionData?.isSubscribed
+                ? "You are subcribed"
+                : "Subscribe to our service"}
+            </h2>
+            {subscriptionData?.isSubscribed && (
+              <p className="text-xs">
+                Subscription ends on {subscriptionData.endDate}
+              </p>
+            )}
+            <div className="mt-2 flex items-center justify-center">
+              <Button
+                type="button"
+                onClick={() => handleSubscriptionCheckout()}
+              >
+                {subscriptionData?.isSubscribed
+                  ? "Manage Subscription"
+                  : "Subscribe"}
+              </Button>
+            </div>
+          </div>
+        </>
+      )}
     </div>
   );
 }

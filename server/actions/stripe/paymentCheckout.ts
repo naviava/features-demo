@@ -3,7 +3,7 @@ import { db } from "~/lib/db";
 import { stripe } from "~/lib/stripe";
 import { authProcedure } from "~/server/trpc";
 
-export const checkout = authProcedure.mutation(async ({ ctx }) => {
+export const paymentCheckout = authProcedure.mutation(async ({ ctx }) => {
   const { user } = ctx;
 
   if (!user) {

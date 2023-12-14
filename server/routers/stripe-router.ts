@@ -1,6 +1,10 @@
 import { router } from "~/server/trpc";
-import { checkout } from "~/server/actions/stripe/checkout";
+import { checkSubscription } from "../actions/stripe/check-subscription";
+import { paymentCheckout } from "~/server/actions/stripe/paymentCheckout";
+import { subscriptionCheckout } from "~/server/actions/stripe/subscription-checkout";
 
 export const stripeRouter = router({
-  checkout,
+  paymentCheckout,
+  subscriptionCheckout,
+  checkSubscription,
 });
