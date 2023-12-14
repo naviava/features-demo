@@ -1,3 +1,5 @@
+import { Toaster } from "sonner";
+
 import { TRPCProvider } from "./trpc-provider";
 import { ThemeProvider } from "./theme.provider";
 
@@ -14,6 +16,7 @@ export function Providers({ children }: Props) {
         enableSystem
         disableTransitionOnChange
       >
+        <Toaster position="top-right" />
         {children}
       </ThemeProvider>
     </TRPCProvider>

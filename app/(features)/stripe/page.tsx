@@ -2,6 +2,8 @@
 
 import React from "react";
 import { loadStripe } from "@stripe/stripe-js";
+import { trpc } from "~/app/_trpc/client";
+import { toast } from "sonner";
 
 // Make sure to call `loadStripe` outside of a component’s render to avoid
 // recreating the `Stripe` object on every render.
@@ -10,25 +12,28 @@ const stripePromise = loadStripe(
 );
 
 export default function PreviewPage() {
-  React.useEffect(() => {
-    // Check to see if this is a redirect back from Checkout
-    const query = new URLSearchParams(window.location.search);
-    if (query.get("success")) {
-      console.log("Order placed! You will receive an email confirmation.");
-    }
-
-    if (query.get("canceled")) {
-      console.log(
-        "Order canceled -- continue to shop around and checkout when you’re ready.",
-      );
-    }
-  }, []);
+  const { mutate: handleCheckout, isLoading } =
+    trpc.stripe.checkout.useMutation({
+      onError: ({ message }) => toast.error(message),
+      onSuccess: ({ url }) => {
+        if (!!url) window.location.href = url;
+        toast.success("Checkout successful");
+      },
+    });
 
   return (
-    <form action="/api/checkout_sessions" method="POST">
+    <form
+      onSubmit={(e) => {
+        e.preventDefault();
+        handleCheckout();
+      }}
+    >
       <section>
-        <div className="m-auto text-black">$20</div>
-        <button type="submit" role="link">
+        <div className="m-auto text-black">
+          {`\u20B9 ${(2000).toLocaleString("en-IN")}`}
+        </div>
+        <p></p>
+        <button type="submit" role="link" disabled={isLoading}>
           Checkout
         </button>
       </section>

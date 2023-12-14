@@ -1,14 +1,15 @@
 import { compare } from "bcrypt";
+
 import NextAuth, { AuthOptions } from "next-auth";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import GoogleProvider from "next-auth/providers/google";
 import GithubProvider from "next-auth/providers/github";
 import CredentialsProvider from "next-auth/providers/credentials";
 
-// import { db } from "~/lib/db";
+import { db } from "~/lib/db";
 
 const authOptions: AuthOptions = {
-  //   adapter: PrismaAdapter(db),
+  adapter: PrismaAdapter(db),
   session: { strategy: "jwt" },
   secret: process.env.NEXTAUTH_SECRET,
   providers: [
