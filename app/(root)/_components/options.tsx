@@ -7,7 +7,7 @@ export function Options({}: Props) {
   return (
     <div className="flex gap-x-6">
       <Button asChild size="sm">
-        <Link href="/">Stripe Premium</Link>
+        <Link href="/stripe">Stripe Premium</Link>
       </Button>
       <Button asChild size="sm">
         <Link href="/webrtc">WebRTC</Link>
