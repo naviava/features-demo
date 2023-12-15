@@ -53,6 +53,9 @@ dependencies:
   next-themes:
     specifier: ^0.2.1
     version: 0.2.1(next@14.0.4)(react-dom@18.2.0)(react@18.2.0)
+  nextjs-progressloader:
+    specifier: ^0.2.3
+    version: 0.2.3(next@14.0.4)(react-dom@18.2.0)(react@18.2.0)
   react:
     specifier: ^18
     version: 18.2.0
@@ -2228,6 +2231,20 @@ packages:
       - babel-plugin-macros
     dev: false
 
+  /nextjs-progressloader@0.2.3(next@14.0.4)(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-aNzUR8x4mNPMRUzjZuo2VO/jCX2ZLhOeUx/RwVRcNsoumKKlOqVLHoeAyk6Q11AiFywcGcSZJpyW3yAOYyV/CA==}
+    engines: {node: '>=10'}
+    peerDependencies:
+      next: '>= 6.0.0'
+      react: '>= 16.0.0'
+      react-dom: '>= 16.0.0'
+    dependencies:
+      next: 14.0.4(react-dom@18.2.0)(react@18.2.0)
+      nprogress: 0.2.0
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+    dev: false
+
   /node-addon-api@5.1.0:
     resolution: {integrity: sha512-eh0GgfEkpnoWDq+VY8OyvYhFEzBk6jIYbRKdIlyTiAXIVJ8PyBaKb0rp7oDtoddbdoHWhq8wwr+XZ81F1rpNdA==}
     dev: false
@@ -2272,6 +2289,10 @@ packages:
       console-control-strings: 1.1.0
       gauge: 3.0.2
       set-blocking: 2.0.0
+    dev: false
+
+  /nprogress@0.2.0:
+    resolution: {integrity: sha512-I19aIingLgR1fmhftnbWWO3dXc0hSxqHQHQb3H8m+K3TnEn/iSeTZZOyvKXWqQESMwuUVnatlCnZdLBZZt2VSA==}
     dev: false
 
   /oauth4webapi@2.4.0:

@@ -1,4 +1,7 @@
+"use client";
+
 import { Toaster } from "sonner";
+import { ProgressLoader } from "nextjs-progressloader";
 
 import { TRPCProvider } from "./trpc-provider";
 import { ThemeProvider } from "./theme.provider";
@@ -16,6 +19,7 @@ export function Providers({ children }: Props) {
         enableSystem
         disableTransitionOnChange
       >
+        <ProgressLoader />
         <Toaster position="top-right" />
         {children}
       </ThemeProvider>
